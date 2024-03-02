@@ -15,7 +15,7 @@ Future myCSV(List<String> headerRow, List<List<String>> listOfListOfStrings,
     {bool sharing = false, String? fileName, String? fileTimeStamp}) async {
  
   print("***** Gonna Create cv");
-  String givenFileName = "${fileName ?? 'item_export'}_";
+  String givenFileName = fileName ?? "item_export";
 
   DateTime now = DateTime.now();
  
@@ -50,12 +50,12 @@ Future myCSV(List<String> headerRow, List<List<String>> listOfListOfStrings,
     Uint8List bytes2 = Uint8List.fromList(bytes);
     MimeType type = MimeType.csv;
     if (sharing == true) {
-      XFile xFile = XFile.fromData(bytes2);
+      XFile xFile = XFile.fromData(bytes2, mimeType: type, name: givenFileName);
       await Share.shareXFiles([xFile], text: 'Csv File');
     } else {
       String formattedData = DateTime.now().millisecondsSinceEpoch.toString();
       String? unknownValue = await FileSaver.instance
-          .saveAs(name: '$givenFileName$formattedDate.csv', bytes: bytes2, ext: 'csv', mimeType: type);
+          .saveAs(name: '$givenFileName_$formattedDate.csv', bytes: bytes2, ext: 'csv', mimeType: type);
       print("Unknown value $unknownValue");
  
     }
