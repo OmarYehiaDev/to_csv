@@ -49,7 +49,7 @@ Future myCSV(
     Uint8List bytes2 = Uint8List.fromList(bytes);
     MimeType mimeType = MimeType.csv;
     if (sharing == true) {
-      XFile xFile = XFile.fromData(bytes2, mimeType: mimeType.type, name: givenFileName);
+      XFile xFile = XFile.fromData(bytes2, mimeType: mimeType.type, name: "$givenFileName.csv");
       await Share.shareXFiles([xFile], text: 'CSV File');
     } else {
       String? unknownValue = await FileSaver.instance.saveAs(
